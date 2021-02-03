@@ -1,0 +1,23 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+  <div class="col-8">
+    {% for comment in comments %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ comment.name }} @ <span>{{ comment.created_at }}</span></h5>
+        <p class="card-text">{{ comment.content }}</p>
+        <div>
+          <a href="{{ url_for("home.edit", id=comment.id) }}" class="btn btn-secondary">Edit</a>
+          <a href="{{ url_for("home.delete", id=comment.id) }}" class="ml-2 btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-4">
+    {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
+  </div>
+</div>
+{% endblock %}
